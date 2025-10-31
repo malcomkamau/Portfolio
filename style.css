@@ -6,7 +6,7 @@
 
   /* gradient */
 
-  --bg-gradient-onyx: linear-gradient(
+  --bg-gradient-onyx: linear-gradient( 
     to bottom right, 
     hsl(240, 1%, 25%) 3%, 
     hsl(0, 0%, 19%) 97%
@@ -705,7 +705,7 @@ main {
 }
 
 .clients-item img {
-  width: 100%;
+  width: 100px;
   filter: grayscale(1);
   transition: var(--transition-1);
 }
