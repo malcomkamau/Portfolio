@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Portfolio & Blog</title>
+    <link rel="stylesheet" href="src/style.css">
+    <style>
+        body {
+            padding: 20px;
+            background: hsl(0, 0%, 7%);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        .admin-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: hsl(0, 0%, 12%);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid hsl(0, 0%, 22%);
+        }
+        h1 { margin-bottom: 20px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: hsl(0, 0%, 80%); }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            background: hsl(0, 0%, 7%);
+            border: 1px solid hsl(0, 0%, 22%);
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+        }
+        button {
+            background: linear-gradient(to right, hsl(45, 100%, 72%), hsl(35, 100%, 68%));
+            color: hsl(0, 0%, 7%);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover { opacity: 0.9; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab {
+            padding: 10px 20px;
+            background: hsl(0, 0%, 18%);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .tab.active { background: hsl(45, 100%, 72%); color: black; }
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Admin Dashboard</h1>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="blog">New Blog Post</div>
+            <div class="tab" data-tab="portfolio">New Portfolio Item</div>
+        </div>
+
+        <!-- Blog Form -->
+        <div id="blog-section" class="form-section active">
+            <form id="blog-form">
+                <div class="form-group">
+                    <label>ID (unique string)</label>
+                    <input type="text" name="id" required placeholder="blog-post-title">
+                </div>
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" name="category" required placeholder="Backend, Frontend, etc.">
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="text" name="date" required placeholder="Aug 15, 2024">
+                </div>
+                <div class="form-group">
+                    <label>Image Path (relative to public/assets/images)</label>
+                    <input type="text" name="image" required placeholder="/assets/images/blog-example.jpeg">
+                </div>
+                <div class="form-group">
+                    <label>Content (HTML allowed)</label>
+                    <textarea name="content" rows="10" required></textarea>
+                </div>
+                <button type="submit">Publish Blog Post</button>
+            </form>
+        </div>
+
+        <!-- Portfolio Form -->
+        <div id="portfolio-section" class="form-section">
+            <form id="portfolio-form">
+                <div class="form-group">
+                    <label>ID (unique string)</label>
+                    <input type="text" name="id" required placeholder="project-name">
+                </div>
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" name="category" required placeholder="Web Development, Mobile app, etc.">
+                </div>
+                <div class="form-group">
+                    <label>Image Path (relative to public/assets/images)</label>
+                    <input type="text" name="image" required placeholder="/assets/images/project-example.jpg">
+                </div>
+                <div class="form-group">
+                    <label>Content (HTML allowed)</label>
+                    <textarea name="content" rows="10" required></textarea>
+                </div>
+                <button type="submit">Publish Portfolio Item</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab');
+        const sections = document.querySelectorAll('.form-section');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                sections.forEach(s => s.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(`${tab.dataset.tab}-section`).classList.add('active');
+            });
+        });
+
+        const API_URL = 'http://localhost:3000/api';
+
+        async function handleSubmit(e, type) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch(`${API_URL}/${type}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    alert('Published successfully!');
+                    e.target.reset();
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                alert('Connection error: ' + error.message);
+            }
+        }
+
+        document.getElementById('blog-form').addEventListener('submit', (e) => handleSubmit(e, 'blog'));
+        document.getElementById('portfolio-form').addEventListener('submit', (e) => handleSubmit(e, 'portfolio'));
+    </script>
+</body>
+</html>
