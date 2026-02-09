@@ -1,5 +1,74 @@
 export const blogPosts = [
   {
+    id: "blog-2025-1",
+    title: "Web Security Essentials",
+    category: "Security",
+    date: "May 20, 2025",
+    image: "/assets/images/web-security.jpeg",
+    content: `
+      <p>Security is not an add-on; it's a fundamental part of software design. In 2025, the threat landscape has evolved, making standard practices more important than ever.</p>
+      <h3>Core Principles</h3>
+      <p>1. <strong>Input Validation:</strong> Never trust user input. Sanitize and validate everything to prevent SQL injection and XSS.</p>
+      <p>2. <strong>HTTPS Everywhere:</strong> Encrypt data in transit. With Let's Encrypt, there's no excuse for HTTP.</p>
+      <p>3. <strong>Authentication & Authorization:</strong> Use OAuth2 and JWTs correctly. Follow the principle of least privilege.</p>
+    `
+  },
+  {
+    id: "blog-2025-2",
+    title: "The Rise of WebAssembly",
+    category: "Performance",
+    date: "Apr 02, 2025",
+    image: "/assets/images/webassembly.jpeg",
+    content: `
+      <p>WebAssembly (Wasm) allows code written in languages like Rust and C++ to run in the browser at near-native speed. This opens up the web to high-performance applications like video editing and gaming.</p>
+      <h3>Why Wasm?</h3>
+      <p>It complements, not replaces, JavaScript. heavy computational tasks can be offloaded to Wasm modules while JS handles the UI and DOM interaction.</p>
+    `
+  },
+  {
+    id: "blog-2025-3",
+    title: "Node.js Performance Tuning",
+    category: "Backend",
+    date: "Mar 15, 2025",
+    image: "/assets/images/blog-api.jpeg",
+    content: `
+      <p>Node.js is fast by default due to its non-blocking I/O, but poor coding practices can block the event loop and kill performance.</p>
+      <h3>Optimization Techniques</h3>
+      <p>1. <strong>Profiling:</strong> Use the built-in inspector to find bottlenecks.</p>
+      <p>2. <strong>Clustering:</strong> Take advantage of multi-core systems by forking the process.</p>
+      <p>3. <strong>Stream API:</strong> Process large files chunk by chunk instead of loading them into memory.</p>
+    `
+  },
+  {
+    id: "blog-new-1",
+    title: "Scalable Microservices Architecture",
+    category: "Backend",
+    date: "Feb 12, 2026",
+    image: "/assets/images/microservices.gif",
+    content: `
+      <p>Microservices have revolutionized backend development by allowing teams to build, deploy, and scale services independently. In this deep dive, we explore the patterns that make microservices effective.</p>
+      <h3>Key Patterns</h3>
+      <p>1. <strong>API Gateway:</strong> A single entry point for all clients, handling routing, authentication, and rate limiting.</p>
+      <p>2. <strong>Circuit Breaker:</strong> Preventing cascading failures by detecting and isolating failing services.</p>
+      <p>3. <strong>Event-Driven Design:</strong> Decoupling services using message queues like Kafka or RabbitMQ.</p>
+      <p>Designing for failure is crucial in distributed systems. We'll verify how to implement these patterns using Node.js and Docker.</p>
+    `
+  },
+  {
+    id: "blog-new-2",
+    title: "IoT and Real-Time Systems",
+    category: "Embedded Systems",
+    date: "Jan 28, 2026",
+    image: "/assets/images/iot-and-real-time-systems.jpeg",
+    content: `
+      <p>The Internet of Things (IoT) is connecting the physical world to the digital realm. Building real-time embedded systems requires a deep understanding of hardware constraints and concurrency.</p>
+      <h3>Real-Time Operating Systems (RTOS)</h3>
+      <p>Unlike general-purpose OSs, an RTOS guarantees that tasks are completed within strict timing constraints. We'll look at FreeRTOS and how it manages tasks and interrupts.</p>
+      <h3>Connectivity Protocols</h3>
+      <p>From MQTT to CoAP, choosing the right protocol is vital for energy-efficient and reliable communication in constrained environments.</p>
+    `
+  },
+  {
     id: "blog-1",
     title: "Building Scalable Backend Systems",
     category: "Backend",

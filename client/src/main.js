@@ -1,31 +1,19 @@
 // Import styles
-import './style.css'
-// Local fallback data (optional, or remove once DB is seeded)
-let blogPosts = [];
-let portfolioItems = [];
+import './style.css';
+import './search.css';
+import { blogPosts as dataBlogPosts, portfolioItems as dataPortfolioItems } from './data.js';
 
-const API_URL = 'http://localhost:3000/api';
-
-async function fetchData() {
-  try {
-    const blogRes = await fetch(`${API_URL}/blog`);
-    blogPosts = await blogRes.json();
-
-    const portfolioRes = await fetch(`${API_URL}/portfolio`);
-    portfolioItems = await portfolioRes.json();
-
-    // Re-render components that depend on this data
-    renderBlogPosts();
-    renderPortfolioItems();
-  } catch (error) {
-    console.error('Failed to fetch data:', error);
-  }
-}
+// Local variables to hold data
+const blogPosts = dataBlogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+const portfolioItems = dataPortfolioItems;
 
 // element toggle function
-const elementToggleFunc = function (elem) { elem.classList.toggle("active"); } 
+const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
 
 // sidebar variables
+console.log('Loaded blogPosts:', blogPosts);
+console.log('Loaded portfolioItems:', portfolioItems);
+
 const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
@@ -51,18 +39,13 @@ const testimonialsModalFunc = function () {
 
 // add click event to all modal items
 for (let i = 0; i < testimonialsItem.length; i++) {
-
   testimonialsItem[i].addEventListener("click", function () {
-
     modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
     modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
     modalTitle.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
     modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
-
     testimonialsModalFunc();
-
   });
-
 }
 
 // add click event to modal close button
@@ -77,15 +60,48 @@ const filterBtn = document.querySelectorAll("[data-filter-btn]");
 
 select.addEventListener("click", function () { elementToggleFunc(this); });
 
+// State for filtering
+let currentCategory = "all";
+let currentSearchTerm = "";
+
+// Helper to filter and render
+const filterAndRender = () => {
+  // Filter Portfolio
+  const filteredPortfolio = portfolioItems.filter(item => {
+    const matchesCategory = currentCategory === "all" || item.category.toLowerCase() === currentCategory;
+    const matchesSearch = item.title.toLowerCase().includes(currentSearchTerm.toLowerCase()) || 
+                          item.category.toLowerCase().includes(currentSearchTerm.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+  renderPortfolioItems(filteredPortfolio);
+
+  // Filter Blog (Category 'all' usually applies to everything in simple implementations, 
+  // but blog posts also have categories. For now, let's say the category filter is mostly for Portfolio 
+  // unless we unify them. The user UI shows filters specifically in the Portfolio section. 
+  // So lets only filter Blog by Search Term for now, unless the Mobile Filter is global).
+  // The Mobile Filter has chips like "Backend", "Embedded Systems".
+  
+  const filteredBlog = blogPosts.filter(post => {
+    // If currentCategory is one of the Portfolio ones (Web Design etc), it might not match Blog categories (Backend etc).
+    // Let's match strictly if specific, or if 'all'.
+    // Actually, let's treat the Category filter as Global if it matches.
+    const matchesCategory = currentCategory === "all" || post.category.toLowerCase() === currentCategory;
+     const matchesSearch = post.title.toLowerCase().includes(currentSearchTerm.toLowerCase()) || 
+                           post.category.toLowerCase().includes(currentSearchTerm.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+  renderBlogPosts(filteredBlog);
+}
+
 // add event in all select items
 for (let i = 0; i < selectItems.length; i++) {
   selectItems[i].addEventListener("click", function () {
-
     let selectedValue = this.innerText.toLowerCase().trim();
     selectValue.innerText = this.innerText;
     elementToggleFunc(select);
-    filterFunc(selectedValue);
-
+    
+    currentCategory = selectedValue;
+    filterAndRender();
   });
 }
 
@@ -93,28 +109,15 @@ for (let i = 0; i < selectItems.length; i++) {
 const filterItems = document.querySelectorAll("[data-filter-item]");
 
 const filterFunc = function (selectedValue) {
-
-  for (let i = 0; i < filterItems.length; i++) {
-
-    if (selectedValue === "all") {
-      filterItems[i].classList.add("active");
-    } else if (selectedValue === filterItems[i].dataset.category) {
-      filterItems[i].classList.add("active");
-    } else {
-      filterItems[i].classList.remove("active");
-    }
-
-  }
-
+  currentCategory = selectedValue;
+  filterAndRender();
 }
 
 // add event in all filter button items for large screen
 let lastClickedBtn = filterBtn[0];
 
 for (let i = 0; i < filterBtn.length; i++) {
-
   filterBtn[i].addEventListener("click", function () {
-
     let selectedValue = this.innerText.toLowerCase().trim();
     selectValue.innerText = this.innerText;
     filterFunc(selectedValue);
@@ -122,9 +125,7 @@ for (let i = 0; i < filterBtn.length; i++) {
     lastClickedBtn.classList.remove("active");
     this.classList.add("active");
     lastClickedBtn = this;
-
   });
-
 }
 
 // contact form variables
@@ -135,14 +136,11 @@ const formBtn = document.querySelector("[data-form-btn]");
 // add event to all form input field
 for (let i = 0; i < formInputs.length; i++) {
   formInputs[i].addEventListener("input", function () {
-
-    // check form validation
     if (form.checkValidity()) {
       formBtn.removeAttribute("disabled");
     } else {
       formBtn.setAttribute("disabled", "");
     }
-
   });
 }
 
@@ -161,7 +159,6 @@ const backBtn = document.querySelector("[data-back-btn]");
 
 // function to show page
 const showPage = function (pageName) {
-  // Show/hide pages
   for (let i = 0; i < pages.length; i++) {
     if (pageName === pages[i].dataset.page) {
       pages[i].classList.add("active");
@@ -170,13 +167,10 @@ const showPage = function (pageName) {
     }
   }
 
-  // Manage navigation link active states
   for (let i = 0; i < navigationLinks.length; i++) {
     if (pageName === navigationLinks[i].innerText.toLowerCase().trim()) {
       navigationLinks[i].classList.add("active");
     } else {
-      // Don't remove active class if we're on the details page
-      // so the back button knows which tab to return to
       if (pageName !== "details") {
         navigationLinks[i].classList.remove("active");
       }
@@ -211,23 +205,45 @@ const showDetails = function (item) {
   showPage("details");
 }
 
-// add click event to all portfolio items
-const portfolioItemElements = document.querySelectorAll(".project-item");
-for (let i = 0; i < portfolioItemElements.length; i++) {
-  portfolioItemElements[i].addEventListener("click", function (e) {
-    e.preventDefault();
-    const id = this.dataset.id;
-    const item = portfolioItems.find(p => p.id === id);
-    if (item) showDetails(item);
-  });
+// function to render portfolio items
+const portfolioListContainer = document.querySelector(".project-list");
+
+const renderPortfolioItems = function (items) {
+  if (!portfolioListContainer) return;
+
+  if (items.length === 0) {
+    portfolioListContainer.innerHTML = '<li class="no-results">No projects found.</li>';
+    return;
+  }
+
+  portfolioListContainer.innerHTML = items.map(item => `
+    <li class="project-item active" data-id="${item.id}" data-filter-item data-category="${item.category.toLowerCase()}">
+      <a href="#">
+        <figure class="project-img">
+          <div class="project-item-icon-box">
+            <ion-icon name="eye-outline"></ion-icon>
+          </div>
+          <img src="${item.image}" alt="${item.title}" loading="lazy">
+        </figure>
+        <h3 class="project-title">${item.title}</h3>
+        <p class="project-category">${item.category}</p>
+      </a>
+    </li>
+  `).join('');
 }
 
-// Function to render blog posts
-function renderBlogPosts() {
-  const blogList = document.querySelector(".blog-posts-list");
-  if (!blogList) return;
-  
-  blogList.innerHTML = blogPosts.map(post => `
+// function to render blog posts
+const blogListContainer = document.querySelector(".blog-posts-list");
+
+const renderBlogPosts = function (posts) {
+  if (!blogListContainer) return;
+
+  if (posts.length === 0) {
+    blogListContainer.innerHTML = '<li class="no-results">No blog posts found.</li>';
+    return;
+  }
+
+  blogListContainer.innerHTML = posts.map(post => `
     <li class="blog-post-item" data-id="${post.id}">
       <a href="#">
         <figure class="blog-banner-box">
@@ -240,61 +256,106 @@ function renderBlogPosts() {
             <time datetime="${post.date}">${post.date}</time>
           </div>
           <h3 class="h3 blog-item-title">${post.title}</h3>
+          <p class="blog-text">
+            ${post.content.replace(/<[^>]*>?/gm, '').substring(0, 100)}...
+          </p>
         </div>
       </a>
     </li>
   `).join('');
-
-  // Re-attach listeners
-  const blogItemElements = document.querySelectorAll(".blog-post-item");
-  for (let i = 0; i < blogItemElements.length; i++) {
-    blogItemElements[i].addEventListener("click", function (e) {
-      e.preventDefault();
-      const id = this.dataset.id;
-      const item = blogPosts.find(b => b.id === id);
-      if (item) showDetails(item);
-    });
-  }
 }
 
-// Function to render portfolio items
-function renderPortfolioItems() {
-  const portfolioList = document.querySelector(".project-list");
-  if (!portfolioList) return;
+// Initial Render
+renderPortfolioItems(portfolioItems);
+renderBlogPosts(blogPosts);
 
-  portfolioList.innerHTML = portfolioItems.map(item => `
-    <li class="project-item active" data-filter-item data-category="${item.category.toLowerCase()}">
-      <a href="#" data-id="${item.id}">
-        <figure class="project-img">
-          <div class="project-item-icon-box">
-            <ion-icon name="eye-outline"></ion-icon>
-          </div>
-          <img src="${item.image}" alt="${item.title}" loading="lazy">
-        </figure>
-        <h3 class="project-title">${item.title}</h3>
-        <p class="project-category">${item.category}</p>
-      </a>
-    </li>
-  `).join('');
-
-  // Re-attach listeners
-  const portfolioItemElements = document.querySelectorAll(".project-item a");
-  for (let i = 0; i < portfolioItemElements.length; i++) {
-    portfolioItemElements[i].addEventListener("click", function (e) {
+// Event Delegation for Portfolio Items
+if (portfolioListContainer) {
+  portfolioListContainer.addEventListener("click", function (e) {
+    const itemElement = e.target.closest(".project-item");
+    if (itemElement) {
       e.preventDefault();
-      const id = this.dataset.id;
+      const id = itemElement.dataset.id;
       const item = portfolioItems.find(p => p.id === id);
       if (item) showDetails(item);
-    });
-  }
+    }
+  });
 }
 
-// Initial fetch
-fetchData();
+// Event Delegation for Blog Posts
+if (blogListContainer) {
+  blogListContainer.addEventListener("click", function (e) {
+    const itemElement = e.target.closest(".blog-post-item");
+    if (itemElement) {
+      e.preventDefault();
+      const id = itemElement.dataset.id;
+      const item = blogPosts.find(b => b.id === id);
+      if (item) showDetails(item);
+    }
+  });
+}
 
-// back button event
+// Search Functionality
+const searchInputs = document.querySelectorAll("[data-search-input]");
+const mobileSearchInput = document.querySelector("[data-mobile-search-input]");
+
+const handleSearch = (e) => {
+  currentSearchTerm = e.target.value.trim();
+  // Sync all search inputs
+  searchInputs.forEach(input => {
+     if (input !== e.target) input.value = currentSearchTerm;
+  });
+  if (mobileSearchInput && mobileSearchInput !== e.target) {
+      mobileSearchInput.value = currentSearchTerm;
+  }
+  
+  filterAndRender();
+}
+
+searchInputs.forEach(input => {
+  input.addEventListener("input", handleSearch);
+});
+
+if (mobileSearchInput) {
+    mobileSearchInput.addEventListener("input", handleSearch);
+}
+
+// Mobile Drawer Functionality
+const glassPill = document.querySelector("[data-glass-pill]");
+const mobileDrawer = document.querySelector("[data-mobile-drawer]");
+const drawerCloseBtn = document.querySelector("[data-drawer-close]");
+const mobileFilterChips = document.querySelectorAll("[data-mobile-filter]");
+
+if (glassPill && mobileDrawer) {
+    glassPill.addEventListener("click", () => {
+        mobileDrawer.classList.add("active");
+    });
+}
+
+if (drawerCloseBtn && mobileDrawer) {
+    drawerCloseBtn.addEventListener("click", () => {
+        mobileDrawer.classList.remove("active");
+    });
+}
+
+// Mobile Filter Chips
+mobileFilterChips.forEach(chip => {
+    chip.addEventListener("click", function() {
+        // Toggle active state
+        mobileFilterChips.forEach(c => c.classList.remove("active"));
+        this.classList.add("active");
+        
+        const selectedValue = this.dataset.mobileFilter;
+        currentCategory = selectedValue;
+        
+        // Also update desktop filter buttons/select if possible (optional sync)
+        
+        filterAndRender();
+    });
+});
+
+// Back button event
 backBtn.addEventListener("click", function () {
-  // Go back to the previous page or default to about
   const activeNavItem = document.querySelector(".navbar-link.active");
   if (activeNavItem) {
     showPage(activeNavItem.innerText.toLowerCase().trim());
