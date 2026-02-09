@@ -30,7 +30,7 @@ export const blogPosts = [
     title: "Node.js Performance Tuning",
     category: "Backend",
     date: "Mar 15, 2025",
-    image: "/assets/images/blog-api.jpeg",
+    image: "/assets/images/nodejs-performance.jpeg",
     content: `
       <p>Node.js is fast by default due to its non-blocking I/O, but poor coding practices can block the event loop and kill performance.</p>
       <h3>Optimization Techniques</h3>
