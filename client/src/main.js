@@ -1,6 +1,7 @@
 // Import styles
 import './style.css';
 import './search.css';
+import emailjs from '@emailjs/browser';
 import { blogPosts as dataBlogPosts, portfolioItems as dataPortfolioItems } from './data.js';
 
 // Local variables to hold data
@@ -143,6 +144,38 @@ for (let i = 0; i < formInputs.length; i++) {
     }
   });
 }
+
+// contact form submission
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  formBtn.setAttribute("disabled", "");
+  const btnText = formBtn.querySelector("span");
+  const originalText = btnText.innerText;
+  btnText.innerText = "Sending...";
+
+  emailjs.sendForm(
+    import.meta.env.VITE_EMAIL_SERVICE_ID || import.meta.env.VITE_EMAILJS_SERVICE_ID,
+    import.meta.env.VITE_EMAIL_TEMPLATE_ID || import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+    this,
+    import.meta.env.VITE_EMAIL_PUBLIC_KEY || import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+  )
+    .then(() => {
+      btnText.innerText = "Success!";
+      form.reset();
+      formBtn.setAttribute("disabled", "");
+      setTimeout(() => {
+        btnText.innerText = originalText;
+      }, 3000);
+    }, (err) => {
+      btnText.innerText = "Error!";
+      console.error("EmailJS Error:", err);
+      setTimeout(() => {
+        btnText.innerText = originalText;
+        formBtn.removeAttribute("disabled");
+      }, 3000);
+    });
+});
 
 // page navigation variables
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
