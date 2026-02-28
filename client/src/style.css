@@ -1121,6 +1121,7 @@ main {
   border: 1px solid var(--jet);
   border-radius: 14px;
   outline: none;
+  margin-bottom: 25px;
 }
 
 .form-input::placeholder { font-weight: var(--fw-500); }
@@ -1497,7 +1498,10 @@ textarea.form-input::-webkit-resizer { display: none; }
     margin-bottom: 30px;
   }
 
-  .form-input { padding: 15px 20px; }
+  .form-input { 
+    padding: 15px 20px;
+    margin-bottom: 30px;
+  }
 
   textarea.form-input { margin-bottom: 30px; }
 
