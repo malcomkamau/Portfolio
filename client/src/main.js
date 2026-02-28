@@ -149,17 +149,22 @@ for (let i = 0; i < formInputs.length; i++) {
 form.addEventListener("submit", function (event) {
   event.preventDefault();
 
+  const serviceID = import.meta.env.VITE_EMAIL_SERVICE_ID || import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const templateID = import.meta.env.VITE_EMAIL_TEMPLATE_ID || import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const publicKey = import.meta.env.VITE_EMAIL_PUBLIC_KEY || import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+  if (!serviceID || !templateID || !publicKey) {
+    console.error("EmailJS Error: Missing environment variables. Please check your .env file and restart the dev server.");
+    alert("Email service configuration is missing. Please check the console for details.");
+    return;
+  }
+
   formBtn.setAttribute("disabled", "");
   const btnText = formBtn.querySelector("span");
   const originalText = btnText.innerText;
   btnText.innerText = "Sending...";
 
-  emailjs.sendForm(
-    import.meta.env.VITE_EMAIL_SERVICE_ID || import.meta.env.VITE_EMAILJS_SERVICE_ID,
-    import.meta.env.VITE_EMAIL_TEMPLATE_ID || import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-    this,
-    import.meta.env.VITE_EMAIL_PUBLIC_KEY || import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-  )
+  emailjs.sendForm(serviceID, templateID, this, publicKey)
     .then(() => {
       btnText.innerText = "Success!";
       form.reset();
