@@ -12,8 +12,8 @@ const portfolioItems = dataPortfolioItems;
 const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
 
 // sidebar variables
-console.log('Loaded blogPosts:', blogPosts);
-console.log('Loaded portfolioItems:', portfolioItems);
+//console.log('Loaded blogPosts:', blogPosts);
+//console.log('Loaded portfolioItems:', portfolioItems);
 
 const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
@@ -216,6 +216,16 @@ const showPage = function (pageName) {
   }
   
   window.scrollTo(0, 0);
+
+  // Toggle glass pill visibility
+  const glassPill = document.querySelector("[data-glass-pill]");
+  if (glassPill) {
+    if (pageName === "portfolio" || pageName === "blog") {
+      glassPill.classList.add("active");
+    } else {
+      glassPill.classList.remove("active");
+    }
+  }
 }
 
 // add event to all nav link
@@ -401,3 +411,7 @@ backBtn.addEventListener("click", function () {
     showPage("about");
   }
 });
+
+// Initial Page Load
+const initialPage = document.querySelector(".navbar-link.active")?.innerText.toLowerCase().trim() || "about";
+showPage(initialPage);
