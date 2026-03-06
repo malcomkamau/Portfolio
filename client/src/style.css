@@ -418,6 +418,47 @@ main {
 
 .social-item .social-link:hover { color: var(--light-gray); }
 
+.download-cv {
+  background: var(--border-gradient-onyx);
+  color: var(--orange-yellow-crayola);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: var(--fs-6);
+  font-weight: var(--fw-500);
+  box-shadow: var(--shadow-2);
+  transition: var(--transition-1);
+  margin-top: 15px;
+  position: relative;
+  z-index: 1;
+}
+
+.download-cv::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: var(--bg-gradient-jet);
+  border-radius: inherit;
+  z-index: -1;
+  transition: var(--transition-1);
+}
+
+.download-cv:hover,
+.download-cv:focus {
+  background: var(--bg-gradient-yellow-1);
+}
+
+.download-cv:hover::before,
+.download-cv:focus::before {
+  background: var(--bg-gradient-yellow-2);
+}
+
+.download-cv ion-icon { font-size: 18px; }
+
 /*-----------------------------------*\
   #NAVBAR
 \*-----------------------------------*/

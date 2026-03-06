@@ -64,7 +64,7 @@
 }
 
 .glass-pill.active {
-  display: flex;
+  display: none; /* Change to flex to enable */
 }
 
 .glass-pill:hover {

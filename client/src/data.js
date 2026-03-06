@@ -145,11 +145,11 @@ export const blogPosts = [
 export const portfolioItems = [
   {
     id: "project-1",
-    title: "Real Estate Platform",
+    title: "Real Estate Platform (may have been rebranded)",
     category: "Full Stack Development",
     image: "/assets/images/project-1.jpg",
     content: `
-      <p>A comprehensive real estate discovery platform that allows users to search, filter, and view properties in real-time. Built with a focus on performance and intuitive user experience.</p>
+      <p>A comprehensive real estate discovery platform (may have been rebranded) that allows users to search, filter, and view properties in real-time. Built with a focus on performance and intuitive user experience.</p>
       <h3>Key Features</h3>
       <ul>
         <li>Real-time property search and filtering</li>
