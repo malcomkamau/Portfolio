@@ -1,6 +1,7 @@
 // Import styles
 import './style.css';
 import './search.css';
+import './animations.css';
 import emailjs from '@emailjs/browser';
 import { blogPosts as dataBlogPosts, portfolioItems as dataPortfolioItems } from './data.js';
 
@@ -415,3 +416,62 @@ backBtn.addEventListener("click", function () {
 // Initial Page Load
 const initialPage = document.querySelector(".navbar-link.active")?.innerText.toLowerCase().trim() || "about";
 showPage(initialPage);
+
+/**
+ * Premium UI Animations
+ */
+
+// Decrypted Text Animation
+function decryptText(element, targetText, duration = 1000) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+  const start = performance.now();
+  const originalText = element.innerText;
+  
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    
+    let currentText = "";
+    for (let i = 0; i < targetText.length; i++) {
+      if (i < targetText.length * progress) {
+        currentText += targetText[i];
+      } else {
+        currentText += chars[Math.floor(Math.random() * chars.length)];
+      }
+    }
+    
+    element.innerText = currentText;
+    
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    }
+  }
+  
+  requestAnimationFrame(update);
+}
+
+// Letter Glitch Effect
+function initGlitch() {
+  const glitchElements = document.querySelectorAll(".glitch-text");
+  glitchElements.forEach(el => {
+    el.setAttribute("data-text", el.innerText);
+  });
+}
+
+// Initialize premium effects
+document.addEventListener("DOMContentLoaded", () => {
+  const nameElement = document.querySelector(".name");
+  if (nameElement) {
+    const targetName = nameElement.innerText;
+    decryptText(nameElement, targetName, 1500);
+  }
+  
+  initGlitch();
+  
+  // Apply gradual blur to scrollable areas
+  const scrollables = document.querySelectorAll(".has-scrollbar");
+  scrollables.forEach(el => {
+    el.classList.add("gradual-blur");
+  });
+});
+
