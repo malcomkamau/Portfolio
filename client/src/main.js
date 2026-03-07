@@ -71,8 +71,8 @@ const filterAndRender = () => {
   // Filter Portfolio
   const filteredPortfolio = portfolioItems.filter(item => {
     const matchesCategory = currentCategory === "all" || item.category.toLowerCase() === currentCategory;
-    const matchesSearch = item.title.toLowerCase().includes(currentSearchTerm.toLowerCase()) || 
-                          item.category.toLowerCase().includes(currentSearchTerm.toLowerCase());
+    const matchesSearch = item.title.toLowerCase().includes(currentSearchTerm.toLowerCase()) ||
+      item.category.toLowerCase().includes(currentSearchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
   });
   renderPortfolioItems(filteredPortfolio);
@@ -82,14 +82,14 @@ const filterAndRender = () => {
   // unless we unify them. The user UI shows filters specifically in the Portfolio section. 
   // So lets only filter Blog by Search Term for now, unless the Mobile Filter is global).
   // The Mobile Filter has chips like "Backend", "Embedded Systems".
-  
+
   const filteredBlog = blogPosts.filter(post => {
     // If currentCategory is one of the Portfolio ones (Web Design etc), it might not match Blog categories (Backend etc).
     // Let's match strictly if specific, or if 'all'.
     // Actually, let's treat the Category filter as Global if it matches.
     const matchesCategory = currentCategory === "all" || post.category.toLowerCase() === currentCategory;
-     const matchesSearch = post.title.toLowerCase().includes(currentSearchTerm.toLowerCase()) || 
-                           post.category.toLowerCase().includes(currentSearchTerm.toLowerCase());
+    const matchesSearch = post.title.toLowerCase().includes(currentSearchTerm.toLowerCase()) ||
+      post.category.toLowerCase().includes(currentSearchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
   });
   renderBlogPosts(filteredBlog);
@@ -101,7 +101,7 @@ for (let i = 0; i < selectItems.length; i++) {
     let selectedValue = this.innerText.toLowerCase().trim();
     selectValue.innerText = this.innerText;
     elementToggleFunc(select);
-    
+
     currentCategory = selectedValue;
     filterAndRender();
   });
@@ -186,6 +186,7 @@ form.addEventListener("submit", function (event) {
 // page navigation variables
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
+const glassPill = document.querySelector("[data-glass-pill]");
 
 // details variables
 const detailsPage = document.querySelector("[data-page='details']");
@@ -215,17 +216,24 @@ const showPage = function (pageName) {
       }
     }
   }
-  
+
   window.scrollTo(0, 0);
 
   // Toggle glass pill visibility
-  const glassPill = document.querySelector("[data-glass-pill]");
   if (glassPill) {
     if (pageName === "portfolio" || pageName === "blog") {
       glassPill.classList.add("active");
     } else {
       glassPill.classList.remove("active");
     }
+  }
+
+  // Smooth Page Transition
+  const activePage = document.querySelector(`[data-page="${pageName}"]`);
+  if (activePage) {
+    activePage.classList.remove("page-transition-enter");
+    void activePage.offsetWidth; // Trigger reflow
+    activePage.classList.add("page-transition-active");
   }
 }
 
@@ -242,14 +250,14 @@ const showDetails = function (item) {
   detailsImg.src = item.image;
   detailsImg.alt = item.title;
   detailsCategory.innerText = item.category;
-  
+
   if (item.date) {
     detailsDate.innerText = item.date;
     detailsDate.parentElement.style.display = "flex";
   } else {
     detailsDate.parentElement.style.display = "none";
   }
-  
+
   detailsText.innerHTML = item.content;
   showPage("details");
 }
@@ -352,12 +360,12 @@ const handleSearch = (e) => {
   currentSearchTerm = e.target.value.trim();
   // Sync all search inputs
   searchInputs.forEach(input => {
-     if (input !== e.target) input.value = currentSearchTerm;
+    if (input !== e.target) input.value = currentSearchTerm;
   });
   if (mobileSearchInput && mobileSearchInput !== e.target) {
-      mobileSearchInput.value = currentSearchTerm;
+    mobileSearchInput.value = currentSearchTerm;
   }
-  
+
   filterAndRender();
 }
 
@@ -366,41 +374,40 @@ searchInputs.forEach(input => {
 });
 
 if (mobileSearchInput) {
-    mobileSearchInput.addEventListener("input", handleSearch);
+  mobileSearchInput.addEventListener("input", handleSearch);
 }
 
 // Mobile Drawer Functionality
-const glassPill = document.querySelector("[data-glass-pill]");
 const mobileDrawer = document.querySelector("[data-mobile-drawer]");
 const drawerCloseBtn = document.querySelector("[data-drawer-close]");
 const mobileFilterChips = document.querySelectorAll("[data-mobile-filter]");
 
 if (glassPill && mobileDrawer) {
-    glassPill.addEventListener("click", () => {
-        mobileDrawer.classList.add("active");
-    });
+  glassPill.addEventListener("click", () => {
+    mobileDrawer.classList.add("active");
+  });
 }
 
 if (drawerCloseBtn && mobileDrawer) {
-    drawerCloseBtn.addEventListener("click", () => {
-        mobileDrawer.classList.remove("active");
-    });
+  drawerCloseBtn.addEventListener("click", () => {
+    mobileDrawer.classList.remove("active");
+  });
 }
 
 // Mobile Filter Chips
 mobileFilterChips.forEach(chip => {
-    chip.addEventListener("click", function() {
-        // Toggle active state
-        mobileFilterChips.forEach(c => c.classList.remove("active"));
-        this.classList.add("active");
-        
-        const selectedValue = this.dataset.mobileFilter;
-        currentCategory = selectedValue;
-        
-        // Also update desktop filter buttons/select if possible (optional sync)
-        
-        filterAndRender();
-    });
+  chip.addEventListener("click", function () {
+    // Toggle active state
+    mobileFilterChips.forEach(c => c.classList.remove("active"));
+    this.classList.add("active");
+
+    const selectedValue = this.dataset.mobileFilter;
+    currentCategory = selectedValue;
+
+    // Also update desktop filter buttons/select if possible (optional sync)
+
+    filterAndRender();
+  });
 });
 
 // Back button event
@@ -426,11 +433,11 @@ function decryptText(element, targetText, duration = 1000) {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
   const start = performance.now();
   const originalText = element.innerText;
-  
+
   function update(now) {
     const elapsed = now - start;
     const progress = Math.min(elapsed / duration, 1);
-    
+
     let currentText = "";
     for (let i = 0; i < targetText.length; i++) {
       if (i < targetText.length * progress) {
@@ -439,14 +446,14 @@ function decryptText(element, targetText, duration = 1000) {
         currentText += chars[Math.floor(Math.random() * chars.length)];
       }
     }
-    
+
     element.innerText = currentText;
-    
+
     if (progress < 1) {
       requestAnimationFrame(update);
     }
   }
-  
+
   requestAnimationFrame(update);
 }
 
@@ -465,13 +472,41 @@ document.addEventListener("DOMContentLoaded", () => {
     const targetName = nameElement.innerText;
     decryptText(nameElement, targetName, 1500);
   }
-  
+
   initGlitch();
-  
+
   // Apply gradual blur to scrollable areas
   const scrollables = document.querySelectorAll(".has-scrollbar");
   scrollables.forEach(el => {
     el.classList.add("gradual-blur");
   });
+
+  // Parallax logic
+  document.addEventListener("mousemove", (e) => {
+    const parallaxItems = document.querySelectorAll(".parallax-item");
+    parallaxItems.forEach(item => {
+      const speed = item.getAttribute("data-speed") || 0.05;
+      const x = (window.innerWidth - e.clientX * speed) / 100;
+      const y = (window.innerHeight - e.clientY * speed) / 100;
+      item.style.transform = `translateX(${x}px) translateY(${y}px)`;
+    });
+  });
+
+  // Magnetic Interaction
+  const magneticElements = document.querySelectorAll(".navbar-link, .info_more-btn, .form-btn, .project-item, .blog-post-item");
+  magneticElements.forEach(el => {
+    el.addEventListener("mousemove", (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      
+      el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+    });
+    
+    el.addEventListener("mouseleave", () => {
+      el.style.transform = `translate(0px, 0px)`;
+    });
+  });
 });
+
 

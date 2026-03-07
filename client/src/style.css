@@ -183,6 +183,10 @@ article {
 
 .icon-box ion-icon { --ionicon-stroke-width: 35px; }
 
+.main-content {
+  padding-bottom: 60px; /* Space for mobile floating dock */
+}
+
 article { display: none; }
 
 article.active {
@@ -465,15 +469,26 @@ main {
 
 .navbar {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: hsla(240, 1%, 17%, 0.75);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--jet);
-  border-radius: 12px 12px 0 0;
-  box-shadow: var(--shadow-2);
-  z-index: 5;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  min-width: 300px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(25px) saturate(200%);
+  -webkit-backdrop-filter: blur(25px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 30px;
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.7), 
+              inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  z-index: 100;
+  padding: 8px 25px;
+  transition: all 0.3s ease;
+}
+
+.navbar:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .navbar-list {
@@ -487,8 +502,21 @@ main {
 .navbar-link {
   color: var(--light-gray);
   font-size: var(--fs-8);
-  padding: 20px 7px;
+  padding: 10px 15px;
   transition: color var(--transition-1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.navbar-link ion-icon {
+  font-size: 1.2rem;
+}
+
+.navbar-link span {
+  font-size: 0.7rem;
+  font-weight: var(--fw-500);
 }
 
 .navbar-link:hover,
@@ -1708,13 +1736,10 @@ textarea.form-input::-webkit-resizer { display: none; }
     position: relative;
     width: max-content;
     margin: auto;
+    padding-bottom: 120px; /* Separation from floating dock */
   }
 
 
-
-  /**
-   * NAVBAR
-   */
 
   .navbar {
     position: absolute;
@@ -1726,11 +1751,28 @@ textarea.form-input::-webkit-resizer { display: none; }
     border-radius: 0 20px;
     padding: 0 20px;
     box-shadow: none;
+    background: hsla(240, 1%, 17%, 0.75);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--jet);
+    z-index: 5;
+    transform: none;
   }
 
-  .navbar-list {
-    gap: 30px;
-    padding: 0 20px;
+  .navbar-link {
+    flex-direction: row;
+    padding: 20px 7px;
+    gap: 10px;
+  }
+
+  .navbar-link span {
+    font-size: var(--fs-8);
+  }
+
+  .main-content {
+    position: relative;
+    width: max-content;
+    margin: auto;
+    padding-bottom: 0px;
   }
 
   .navbar-link { font-weight: var(--fw-500); }
@@ -1833,6 +1875,7 @@ textarea.form-input::-webkit-resizer { display: none; }
     min-width: 75%;
     width: 75%;
     margin: 0;
+    padding-bottom: 0px;
   }
 
 
