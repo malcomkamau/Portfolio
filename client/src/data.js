@@ -144,92 +144,174 @@ export const blogPosts = [
 
 export const portfolioItems = [
   {
-    id: "project-1",
-    title: "Real Estate Platform (may have been rebranded)",
-    category: "Full Stack Development",
-    image: "/assets/images/project-1.jpg",
+    id: "project-lithos-kernel",
+    title: "Lithos Kernel",
+    category: "Systems Programming",
+    image: "/assets/images/lithos.jpeg",
+    github: "https://github.com/malcomkamau/lithos-kernel",
     content: `
-      <p>A comprehensive real estate discovery platform (may have been rebranded) that allows users to search, filter, and view properties in real-time. Built with a focus on performance and intuitive user experience.</p>
+      <p><strong>Lithos is an ambitious x86_64 microkernel-architected operating system being built from the ground up in Rust.</strong></p>
+      <h3>Vision</h3>
+      <p>Lithos aims to provide a safe, modular, and high-performance foundation for modern computing, leveraging Rust's zero-cost abstractions and memory safety.</p>
+      <h3>Current Progress</h3>
+      <ul>
+        <li><strong>Bare-metal Environment:</strong> Custom target specification and no_std environment.</li>
+        <li><strong>VGA Text Driver:</strong> Safe interface for screen output.</li>
+        <li><strong>Serial Logging:</strong> Professional-grade debugging interface.</li>
+        <li><strong>Testing Infrastructure:</strong> Integrated framework for verified development.</li>
+        <li><strong>CPU Foundation:</strong> GDT, IDT, and Interrupt Handling.</li>
+        <li><strong>Memory Management:</strong> Paging, Frame Allocation, and Heap Support.</li>
+        <li><strong>Multitasking:</strong> Context switching with CPU register preservation and timer-based preemption.</li>
+        <li><strong>Virtual File System:</strong> Unified file interface with ramfs implementation.</li>
+        <li><strong>Block Device Layer:</strong> Abstract disk I/O with RAM disk support.</li>
+        <li><strong>FAT32 Support:</strong> Boot sector parsing and directory structures (read-only foundation).</li>
+        <li><strong>Device Files:</strong> /dev/null, /dev/zero, /dev/random.</li>
+        <li><strong>Interactive Shell:</strong> Command-line interface with ls, mkdir, cd, touch, echo, and more.</li>
+        <li><strong>System Calls:</strong> Full syscall interface (read, write, open, close, exit, fork, exec, wait).</li>
+        <li><strong>ATA/IDE Driver:</strong> Physical disk access via PIO mode.</li>
+        <li><strong>ELF Loader:</strong> Parse and load ELF64 binaries.</li>
+      </ul>
+    `
+  },
+  {
+    id: "project-uselayouts",
+    title: "uselayouts",
+    category: "Frontend UI Library",
+    image: "https://uselayouts.vercel.app/og.png",
+    github: "https://github.com/malcomkamau/uselayouts",
+    content: `
+      <p><strong>A clone of uselayouts.com - a micro-interaction UI library for professionals.</strong></p>
+      <p>Provides free premium animated React components and micro-interactions built with Framer Motion and Tailwind CSS. Designed to integrate seamlessly with Shadcn UI, it helps you bring your interfaces to life with ease.</p>
+      <h3>Why uselayouts?</h3>
+      <ul>
+        <li><strong>Premium Animations:</strong> Built with Framer Motion for buttery smooth transitions.</li>
+        <li><strong>Shadcn Compatible:</strong> Designed to work with your existing Shadcn UI setup.</li>
+        <li><strong>Micro-interactions:</strong> Focused on the small details that make a big difference in UX.</li>
+        <li><strong>Copy & Paste:</strong> Easy to integrate into any React project.</li>
+      </ul>
+      <br />
+      <p><strong>Website:</strong> <a href="https://uselayouts.vercel.app" target="_blank" rel="noopener noreferrer" style="color: var(--vegas-gold); text-decoration: underline;">uselayouts.vercel.app</a></p>
+    `
+  },
+  {
+    id: "project-1",
+    title: "Osiris - Futuristic Web Experience",
+    category: "Full Stack Development & UI/UX",
+    image: "/assets/images/project-1.jpg",
+    github: "https://github.com/malcomkamau/Osiris",
+    content: `
+      <p>A full-fledged, multi-page web application featuring high-fidelity, futuristic visual effects. Designed with a deep focus on immersive user experience and complex interactive elements.</p>
       <h3>Key Features</h3>
       <ul>
-        <li>Real-time property search and filtering</li>
-        <li>Interactive maps integration</li>
-        <li>User bookmarks and notifications</li>
-        <li>Agent dashboard for property management</li>
+        <li>Advanced animations including Matrix rain, glitch transitions, and holographic UI elements.</li>
+        <li>Subtle aurora backgrounds, magnet animations, and shiny text effects.</li>
+        <li>Custom thematic pages encompassing Home, Arsenal, Vehicles, and Technology.</li>
       </ul>
-      <p>The backend was built using Node.js and MongoDB, ensuring high scalability and flexible data structures.</p>
+      <p>This project showcases pushing the boundaries of modern DOM manipulation and CSS for a highly aesthetic, next-generation design.</p>
     `
   },
   {
     id: "project-2",
-    title: "E-commerce Dashboard",
-    category: "Backend & API Development",
+    title: "Qrib Real Estate Platform",
+    category: "Full Stack Development",
     image: "/assets/images/project-2.png",
+    github: "https://qrib.vercel.app",
     content: `
-      <p>An administrative dashboard for an e-commerce giant, focusing on data visualization and inventory management. This project involved complex API integrations and high-security standards.</p>
+      <p>A comprehensive real estate discovery platform allowing users to search, filter, and view properties. Built with precise data modeling and an intuitive user experience.</p>
+      <h3>Key Features</h3>
+      <ul>
+        <li>Granular property listing filters for characteristics like size, amenities, and property types.</li>
+        <li>Advanced user interface incorporating sliding drawers and dynamic interactions.</li>
+        <li>Robust backend driven by Prisma ORM for efficient database queries and complex relations.</li>
+      </ul>
     `
   },
   {
     id: "project-3",
-    title: "Portfolio Website",
-    category: "UI/UX & Frontend Design",
-    image: "/assets/images/project-3.jpg",
+    title: "Enterprise Backend Architecture",
+    category: "Backend & API Architecture",
+    image: "/assets/images/boilerplate.gif",
+    github: "https://github.com/malcomkamau/backend-boilerplate",
     content: `
-      <p>A sleek, dark-themed portfolio website designed for a creative professional. Features smooth transitions and a responsive layout that works across all devices.</p>
+      <p>A highly robust and scalable backend foundation constructed using Express.js, Prisma, and TypeScript. Designed to serve as the structural backbone for future microservices and enterprise applications.</p>
+      <h3>Key Features</h3>
+      <ul>
+        <li>Standardized API versioning and structured snake_case JSON responses.</li>
+        <li>Built-in stringent security with input validation (using Zod), authorization, and comprehensive rate limiting.</li>
+        <li>Advanced handling of pagination, filtering capabilities, and structured error responses.</li>
+      </ul>
     `
   },
   {
     id: "project-4",
-    title: "Task Tracker App",
-    category: "Mobile Application",
+    title: "E-Commerce Admin Dashboard",
+    category: "Full Stack & Security",
     image: "/assets/images/project-4.png",
+    github: "https://github.com/malcomkamau/ecommerce-admin-dashboard",
     content: `
-      <p>A cross-platform mobile application for tracking daily tasks and productivity. Built using React Native for a native feel and performance.</p>
+      <p>A centralized administrative panel for managing e-commerce data. Focused heavily on robust security and synchronized data flows to manage products, categories, and internal blogs seamlessly.</p>
+      <h3>Key Features</h3>
+      <ul>
+        <li>Secure OTP (One-Time Password) verification flow ensuring authorized administrative access.</li>
+        <li>Resilient client-side infrastructure capable of unpacking complex backend API payloads automatically.</li>
+        <li>Dynamic session states, secure authentication contexts, and an immersive dark-theme oriented UI.</li>
+      </ul>
     `
   },
   {
     id: "project-5",
-    title: "Corporate Landing Page",
-    category: "Web Design",
+    title: "Data Sync & Alignment Service",
+    category: "Systems Integration",
     image: "/assets/images/project-5.png",
+    github: "https://github.com/malcomkamau/data-sync-service",
     content: `
-      <p>A high-conversion landing page for a corporate client, following modern design principles and SEO best practices.</p>
+      <p>A sophisticated synchronization proxy integrating modern robust JavaScript backends with corresponding Java model counterparts to ensure cross-platform coherence across organizational silos.</p>
+      <h3>Key Features</h3>
+      <ul>
+        <li>Real-time bi-directional synchronization specifically tailored for core Product and Sales entities.</li>
+        <li>Architectural mapping that aligns heterogeneous data models between distinct backend ecosystems.</li>
+        <li>Guaranteed stateless JWT validation and strict error handling tracking across distributed services.</li>
+      </ul>
     `
   },
   {
     id: "project-6",
-    title: "Agency Website",
-    category: "Responsive UI Design",
+    title: "Electron Workspace Application",
+    category: "Desktop Development",
     image: "/assets/images/project-6.png",
+    github: "https://github.com/malcomkamau/electron-workspace",
     content: `
-      <p>A vibrant and interactive website for a digital marketing agency, showcasing their services and case studies.</p>
+      <p>A modern, cross-platform desktop integration system built entirely upon resilient web technologies. Incorporates a sleek user interface using optimized shadcn/ui components within a performant Electron environment to guarantee broad accessibility and distinct visual consistency.</p>
     `
   },
   {
     id: "project-7",
-    title: "Analytics Dashboard",
-    category: "Web Development",
+    title: "CLI System Metrics Monitor",
+    category: "CLI Tooling",
     image: "/assets/images/project-7.png",
+    github: "https://github.com/malcomkamau/cli-system-monitor",
     content: `
-      <p>A data-intensive dashboard that provides real-time analytics and insights for business owners.</p>
+      <p>A lightweight, powerful terminal-based system monitoring utility crafted to control terminal output positioning and screen clearing specifically, guaranteeing an elegant, continuous visualization of runtime system metrics evading traditional console clutter.</p>
     `
   },
   {
     id: "project-8",
-    title: "Expense Manager",
-    category: "Applications",
+    title: "ESP32-S3 Connected IoT Node",
+    category: "Embedded Systems",
     image: "/assets/images/project-8.jpg",
+    github: "https://github.com/malcomkamau/esp32-s3-iot-node",
     content: `
-      <p>A web application to help individuals manage their daily expenses and savings goals.</p>
+      <p>An initial integration and development stack targeting the adaptable ESP32-S3-N16R8 microcontroller platforms. It actively prepares necessary groundwork handling precise hardware interfacing, streamlined multi-channel sensor data orchestration, alongside fault-tolerant Wi-Fi interactions.</p>
     `
   },
   {
     id: "project-9",
-    title: "API Integration System",
-    category: "Web Development",
-    image: "/assets/images/project-9.png",
+    title: "Creative Portfolio Engine",
+    category: "Frontend Design",
+    image: "/assets/images/portfolio.png",
+    github: "https://github.com/malcomkamau/Portfolio",
     content: `
-      <p>An automated system that synchronizes data across multiple third-party services via APIs.</p>
+      <p>A sleek, elegant portfolio engine architecture (this precise instance). Integrates smooth CSS-driven interactions, persistent dark-mode preferences, efficient React-based routing structures, tailored beautifully for visionary creatives tracking diverse complex arrays of multi-domain experience.</p>
     `
   }
 ];

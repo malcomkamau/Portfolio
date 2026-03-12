@@ -245,6 +245,8 @@ for (let i = 0; i < navigationLinks.length; i++) {
 }
 
 // function to show details
+const githubBtn = document.querySelector("[data-details-github]");
+
 const showDetails = function (item) {
   detailsTitle.innerText = item.title;
   detailsImg.src = item.image;
@@ -256,6 +258,13 @@ const showDetails = function (item) {
     detailsDate.parentElement.style.display = "flex";
   } else {
     detailsDate.parentElement.style.display = "none";
+  }
+
+  if (item.github && githubBtn) {
+    githubBtn.href = item.github;
+    githubBtn.parentElement.style.display = "block";
+  } else if (githubBtn) {
+    githubBtn.parentElement.style.display = "none";
   }
 
   detailsText.innerHTML = item.content;
