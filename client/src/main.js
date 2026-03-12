@@ -68,9 +68,19 @@ let currentSearchTerm = "";
 
 // Helper to filter and render
 const filterAndRender = () => {
+  const groupings = {
+    "full stack": ["full stack development & ui/ux", "full stack development", "full stack & security"],
+    "frontend": ["frontend ui library", "frontend design"],
+    "backend": ["backend & api architecture", "systems integration"],
+    "systems": ["systems programming", "embedded systems"],
+    "applications": ["desktop development", "cli tooling"]
+  };
+
   // Filter Portfolio
   const filteredPortfolio = portfolioItems.filter(item => {
-    const matchesCategory = currentCategory === "all" || item.category.toLowerCase() === currentCategory;
+    const itemCat = item.category.toLowerCase();
+    const isGroupMatch = groupings[currentCategory] && groupings[currentCategory].includes(itemCat);
+    const matchesCategory = currentCategory === "all" || isGroupMatch || itemCat === currentCategory;
     const matchesSearch = item.title.toLowerCase().includes(currentSearchTerm.toLowerCase()) ||
       item.category.toLowerCase().includes(currentSearchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
