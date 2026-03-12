@@ -194,27 +194,10 @@ export const portfolioItems = [
     `
   },
   {
-    id: "project-1",
-    title: "Osiris - Futuristic Web Experience",
-    category: "Full Stack Development & UI/UX",
-    image: "/assets/images/project-1.jpg",
-    github: "https://github.com/malcomkamau/Osiris",
-    content: `
-      <p>A full-fledged, multi-page web application featuring high-fidelity, futuristic visual effects. Designed with a deep focus on immersive user experience and complex interactive elements.</p>
-      <h3>Key Features</h3>
-      <ul>
-        <li>Advanced animations including Matrix rain, glitch transitions, and holographic UI elements.</li>
-        <li>Subtle aurora backgrounds, magnet animations, and shiny text effects.</li>
-        <li>Custom thematic pages encompassing Home, Arsenal, Vehicles, and Technology.</li>
-      </ul>
-      <p>This project showcases pushing the boundaries of modern DOM manipulation and CSS for a highly aesthetic, next-generation design.</p>
-    `
-  },
-  {
-    id: "project-2",
+    id: "qrib-real-estate",
     title: "Qrib Real Estate Platform",
     category: "Full Stack Development",
-    image: "/assets/images/project-2.png",
+    image: "/assets/images/qrib.png",
     github: "https://qrib.vercel.app",
     content: `
       <p>A comprehensive real estate discovery platform allowing users to search, filter, and view properties. Built with precise data modeling and an intuitive user experience.</p>
@@ -243,62 +226,10 @@ export const portfolioItems = [
     `
   },
   {
-    id: "project-4",
-    title: "E-Commerce Admin Dashboard",
-    category: "Full Stack & Security",
-    image: "/assets/images/project-4.png",
-    github: "https://github.com/malcomkamau/ecommerce-admin-dashboard",
-    content: `
-      <p>A centralized administrative panel for managing e-commerce data. Focused heavily on robust security and synchronized data flows to manage products, categories, and internal blogs seamlessly.</p>
-      <h3>Key Features</h3>
-      <ul>
-        <li>Secure OTP (One-Time Password) verification flow ensuring authorized administrative access.</li>
-        <li>Resilient client-side infrastructure capable of unpacking complex backend API payloads automatically.</li>
-        <li>Dynamic session states, secure authentication contexts, and an immersive dark-theme oriented UI.</li>
-      </ul>
-    `
-  },
-  {
-    id: "project-5",
-    title: "Data Sync & Alignment Service",
-    category: "Systems Integration",
-    image: "/assets/images/project-5.png",
-    github: "https://github.com/malcomkamau/data-sync-service",
-    content: `
-      <p>A sophisticated synchronization proxy integrating modern robust JavaScript backends with corresponding Java model counterparts to ensure cross-platform coherence across organizational silos.</p>
-      <h3>Key Features</h3>
-      <ul>
-        <li>Real-time bi-directional synchronization specifically tailored for core Product and Sales entities.</li>
-        <li>Architectural mapping that aligns heterogeneous data models between distinct backend ecosystems.</li>
-        <li>Guaranteed stateless JWT validation and strict error handling tracking across distributed services.</li>
-      </ul>
-    `
-  },
-  {
-    id: "project-6",
-    title: "Electron Workspace Application",
-    category: "Desktop Development",
-    image: "/assets/images/project-6.png",
-    github: "https://github.com/malcomkamau/electron-workspace",
-    content: `
-      <p>A modern, cross-platform desktop integration system built entirely upon resilient web technologies. Incorporates a sleek user interface using optimized shadcn/ui components within a performant Electron environment to guarantee broad accessibility and distinct visual consistency.</p>
-    `
-  },
-  {
-    id: "project-7",
-    title: "CLI System Metrics Monitor",
-    category: "CLI Tooling",
-    image: "/assets/images/project-7.png",
-    github: "https://github.com/malcomkamau/cli-system-monitor",
-    content: `
-      <p>A lightweight, powerful terminal-based system monitoring utility crafted to control terminal output positioning and screen clearing specifically, guaranteeing an elegant, continuous visualization of runtime system metrics evading traditional console clutter.</p>
-    `
-  },
-  {
-    id: "project-8",
-    title: "ESP32-S3 Connected IoT Node",
+    id: "arkham-mecanum-s3",
+    title: "Arkham Mecanum S3",
     category: "Embedded Systems",
-    image: "/assets/images/project-8.jpg",
+    image: "/assets/images/arkham.jpeg",
     github: "https://github.com/malcomkamau/esp32-s3-iot-node",
     content: `
       <p>An initial integration and development stack targeting the adaptable ESP32-S3-N16R8 microcontroller platforms. It actively prepares necessary groundwork handling precise hardware interfacing, streamlined multi-channel sensor data orchestration, alongside fault-tolerant Wi-Fi interactions.</p>
